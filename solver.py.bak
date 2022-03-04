@@ -1,0 +1,51 @@
+import os
+os.system("rm main.bfba912f.js")
+os.system("wget https://www.nytimes.com/games/wordle/main.bfba912f.js")
+os.system("cat main.bfba912f.js |awk -F 'Ma=' '{if(NR==1) print $2}'| awk -F ',Oa=' '{print $1}'>words.txt")
+os.system("rm main.bfba912f.js")
+words = eval(open("words.txt", "r").read())
+
+def is_valid(word):
+    for index, letter in enumerate(guess):
+        if colors[index] == "green":
+            if not letter == word[index]:
+                return False
+            else:
+                word = word[:index] + "*" + word[index+1:]
+    
+    for index, letter in enumerate(guess):
+        if colors[index] == "yellow":
+            if letter not in word or letter == word[index]:
+                return False
+            else:
+                indices = [i for i, x in enumerate(guess) if x == letter]
+                for i in indices:
+                    if colors[i] != "yellow":
+                        indices.remove(i)
+                occurenceWord = [i for i, x in enumerate(word) if x == letter]
+                if len(indices) > len(occurenceWord):
+                    return False
+            
+    for index, letter in enumerate(guess):
+        if colors[index] == "black":
+            if letter in word:
+                return False
+    
+
+    return True
+
+
+while len(words) > 1:
+    setWords = set(words)
+    guess = input("Enter your guess: ")
+    colorInput = input("Enter your colors: ")
+    colors = colorInput.split(" ")
+
+    for index, color in enumerate(colors):
+        if color == "y":
+            colors[index] = "yellow"
+        elif color == "g":
+            colors[index] = "green"
+        elif color == "b":
+            colors[index] = "black"
+
