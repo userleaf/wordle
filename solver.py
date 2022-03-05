@@ -28,14 +28,11 @@ def is_valid(word):
                 return False
             else:
                 word = word.replace(letter, "*",1)
-                
-                
 
     for index, letter in enumerate(guess):
         if colors[index] == "black":
             if letter in word:
                 return False
-
     return True
 
 

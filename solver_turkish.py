@@ -9,7 +9,6 @@ colorsList = ["yellow", "green", "black"]
 colorsList = list(itertools.product(colorsList, repeat=5))
 
 def is_valid(word):
-    occurenceWord = []
     global colors
     for index, letter in enumerate(guess):
         if colors[index] == "green":
@@ -23,13 +22,10 @@ def is_valid(word):
             if letter not in word or letter == word[index]:
                 return False
             else:
-                indices = [i for i, x in enumerate(guess) if x == letter and colors[i] == "yellow"]
-                occurenceWord = [i for i, x in enumerate(word) if x == letter]
-                if len(indices) > len(occurenceWord):
-                    return False
-            
+                word = word.replace(letter, "*",1)
+                
     for index, letter in enumerate(guess):
-        if colors[index] == "black" and index not in occurenceWord:
+        if colors[index] == "black":
             if letter in word:
                 return False
     return True
