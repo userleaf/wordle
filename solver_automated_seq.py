@@ -53,11 +53,11 @@ def word_score(word):
     return np.std(scores)
 
 
+counters = []
 isDone=False
 iteration=0
-while not isDone:
+while iteration < 2800:
     iteration+=1
-    counters = []
     words = wordsConstant
     guess = "slate"
     greens,yellows = w.api(guess)
