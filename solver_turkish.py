@@ -67,4 +67,6 @@ while len(words) > 1:
     for word in words:
         lists.append([word, word_score(word)])
     lists.sort(key=lambda x: x[1])
+
+
     print(lists[0])
